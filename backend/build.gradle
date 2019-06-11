@@ -30,4 +30,5 @@ dependencies {
     implementation 'javax.servlet:servlet-api:3.0-alpha-1'
     implementation 'com.google.api-client:google-api-client:1.29.0'
     implementation 'com.google.http-client:google-http-client-android:1.29.1'
+    compile project(path: ':jokelib')
 }
