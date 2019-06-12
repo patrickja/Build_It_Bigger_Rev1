@@ -1,53 +1,43 @@
 package com.udacity.gradle.builditbigger;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 
-import com.example.android.jokedisplayactivity.DisplayJokeActivity;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
-import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
-@TargetApi(Build.VERSION_CODES.CUPCAKE)
-class EndpointAsyncTask extends AsyncTask<Context, Void, String> {
+class EndpointAsyncTask extends AsyncTask<MainActivityFragment, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
+    private MainActivityFragment mainActivityFragment;
 
     @Override
-    protected String doInBackground(Context... params) {
+    protected String doInBackground(MainActivityFragment... params) {
+
+        mainActivityFragment = params[0];
+        context = mainActivityFragment.getActivity();
+
         if (myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
-                    //{
-               //@Override
-               // protected LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-                    //return null;
-               // }
-            //},
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
                     // ­ 10.0.2.2 is localhost's IP address in Android emulator
                     // ­ turn off compression when running against local devappserver
-                    .setRootUrl("https://172.22.27.98:8080/_ah/api/")
-                    .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                        @Override
-                        public void initialize(AbstractGoogleClientRequest<?>
-                                                       abstractGoogleClientRequest) throws IOException {
-                            abstractGoogleClientRequest.setDisableGZipContent(true);
-                        }
-                    });
+                    .setRootUrl("https://192.168.1.101/_ah/api/");
+//                    .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
+//                        @Override
+//                        public void initialize(AbstractGoogleClientRequest<?>
+//                                                       abstractGoogleClientRequest) throws IOException {
+//                            abstractGoogleClientRequest.setDisableGZipContent(true);
+//                        }
+//                    });
             // end options for devappserver
 
             myApiService = builder.build();
         }
-
-        context = params[0];
 
 
         try {
@@ -57,12 +47,17 @@ class EndpointAsyncTask extends AsyncTask<Context, Void, String> {
         }
     }
 
+
     @Override
     protected void onPostExecute(String result) {
-        android.content.Intent intent = new Intent(context, DisplayJokeActivity.class);
-        // Put the string in the envelope
-        intent.putExtra(DisplayJokeActivity.JOKE_KEY,result);
-        context.startActivity(intent);
+
+        mainActivityFragment.loadedJoke = result;
+        mainActivityFragment.launchJokeDisplayActivity();
+
+//        android.content.Intent intent = new Intent(context, DisplayJokeActivity.class);
+//        // Put the string in the envelope
+//        intent.putExtra(DisplayJokeActivity.JOKE_KEY,result);
+//        context.startActivity(intent);
 
         //Toast.makeText(context, result, Toast.LENGTH_LONG).show();
     }

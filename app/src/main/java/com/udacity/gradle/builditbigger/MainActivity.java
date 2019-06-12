@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -50,14 +49,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void tellJoke(View view) {
-        new EndpointAsyncTask().execute(this);
+//    public void tellJoke(View view) {
+//        new EndpointAsyncTask().execute(this);
+
+
+
 //        JokeCreator jokeCreator = new JokeCreator();
 //
 //        Intent intent = new Intent(this, DisplayJokeActivity.class);
 //        intent.putExtra(getString(R.string.jokeEnvelope), jokeCreator.getJokes());
 //        startActivity(intent);
-    }
+    // }
 
 
 }
