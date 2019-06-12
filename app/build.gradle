@@ -34,28 +34,28 @@ android {
         }
     }
 
-    // Specifies one flavor dimension.
-    flavorDimensions "tier"
+    flavorDimensions "version"
     productFlavors {
         free {
-            dimension "tier"
-            applicationIdSuffix ".free"
+            dimension "version"
+            applicationId "com.udacity.gradle.builditbigger.free"
         }
-
         paid {
-            dimension "tier"
-            applicationIdSuffix ".paid"
+            dimension "version"
+            applicationId "com.udacity.gradle.builditbigger.paid"
         }
     }
 
     packagingOptions {
-        pickFirst 'META-INF/*'
+        exclude 'META-INF/DEPENDENCIES'
     }
 
     compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_7
-        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
+
+
 
     android {
         lintOptions {
@@ -65,6 +65,7 @@ android {
             abortOnError false
         }
     }
+
 }
 
 dependencies {

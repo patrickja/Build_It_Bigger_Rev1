@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath 'com.google.cloud.tools:endpoints-framework-gradle-plugin:2.0.1'
         classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.3.3'
+        classpath "com.google.appengine:gradle-appengine-plugin:1.9.17"
     }
 }
 
@@ -20,8 +21,13 @@ apply plugin: 'war'
 apply plugin: 'com.google.cloud.tools.appengine'
 apply plugin: 'com.google.cloud.tools.endpoints-framework-server'
 
-sourceCompatibility = JavaVersion.VERSION_1_7
-targetCompatibility = JavaVersion.VERSION_1_7
+
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+//appengine.tools.cloudSdkHome="C:\\Program Files (x86)\\Google\\Cloud SDK\\google-cloud-sdk\\platform\\google_appengine\\google\\appengine\\tools\\java\\lib"
+
 
 dependencies {
     implementation 'com.google.endpoints:endpoints-framework:2.2.1'
@@ -31,4 +37,6 @@ dependencies {
     implementation 'com.google.api-client:google-api-client:1.29.0'
     implementation 'com.google.http-client:google-http-client-android:1.29.1'
     compile project(path: ':jokelib')
+    implementation 'com.google.appengine:appengine:1.9.74'
 }
+
