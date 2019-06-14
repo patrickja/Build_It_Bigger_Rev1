@@ -5,26 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-
-
 public class MainActivity extends AppCompatActivity {
-    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        MobileAds.initialize(this, "@string/ad_id_main");
-
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,19 +34,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-//    public void tellJoke(View view) {
-//        new EndpointAsyncTask().execute(this);
-
-
-
-//        JokeCreator jokeCreator = new JokeCreator();
-//
-//        Intent intent = new Intent(this, DisplayJokeActivity.class);
-//        intent.putExtra(getString(R.string.jokeEnvelope), jokeCreator.getJokes());
-//        startActivity(intent);
-    // }
-
-
 }

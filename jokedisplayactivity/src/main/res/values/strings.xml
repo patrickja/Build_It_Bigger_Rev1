@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">JokeActivity</string>
     <string name="title_activity_display_joke">DisplayJokeActivity</string>
-    <string name="jokeEnvelope">why so serious?!?!</string>
+    <string name="no_joking">No Joke Found!!</string>
 </resources>

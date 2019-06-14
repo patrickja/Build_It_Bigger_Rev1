@@ -8,7 +8,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.google.cloud.tools:endpoints-framework-gradle-plugin:2.0.1'
-        classpath 'com.android.tools.build:gradle:3.3.2'
     }
 }
 
@@ -20,14 +19,16 @@ android {
         applicationId "com.udacity.gradle.builditbigger"
         minSdkVersion 18
         targetSdkVersion 28
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-
-        testInstrumentationRunner "androidx.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            debuggable true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -40,38 +41,18 @@ android {
             dimension "version"
             applicationId "com.udacity.gradle.builditbigger.free"
             versionName "1.0­free"
-            buildConfigField "boolean", "PAID_VERSION", "false"
         }
 
         paid {
             dimension "version"
             applicationId "com.udacity.gradle.builditbigger.paid"
             versionNameSuffix "1.0­paid"
-            buildConfigField "boolean", "PAID_VERSION", "true"
-
         }
     }
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
     }
-
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
-    }
-
-
-
-    android {
-        lintOptions {
-            //checkReleaseBuilds false
-            // Or, if you prefer, you can continue to check for errors in release builds,
-            // but continue the build even when errors are found:
-            abortOnError false
-        }
-    }
-
 }
 
 dependencies {
@@ -82,20 +63,35 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:17.2.1'
     implementation 'com.google.api-client:google-api-client:1.29.0'
     implementation 'com.google.http-client:google-http-client-android:1.29.1'
-    implementation 'com.google.code.findbugs:jsr305:3.0.2'
     testImplementation 'junit:junit:4.13-beta-3'
     implementation 'junit:junit:4.13-beta-3'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test:rules:1.2.0'
-    // Optional -- Hamcrest library
-    androidTestImplementation 'org.hamcrest:hamcrest-library:1.3'
-    // Optional -- UI testing with Espresso
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    // Optional -- UI testing with UI Automator
-    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
 
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+}
 
+task testTask {
+    dependsOn (['launchServer', 'runTests', 'closeServer'])
+}
+
+//Launches the GCE local development server
+//Runs all tests
+//Shuts the server down again
+task launchServer (dependsOn :':backend:appengineStart'){
+    evaluationDependsOn ':backend'
+    project(':backend').afterEvaluate { backend ->
+        backend.extensions.appengine.daemon = true
+    }
+    doLast {
+        println "started the server!"
+    }
+}
+
+task runTests (dependsOn: ':app:connectedAndroidTest') {
+    mustRunAfter 'launchServer'
+}
+
+task closeServer (dependsOn: ':backend:appengineStop'){
+    mustRunAfter 'runTests'
 }

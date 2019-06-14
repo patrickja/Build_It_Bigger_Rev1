@@ -9,7 +9,7 @@
   }
  },
  "basePath": "/_ah/api/myApi/v1/",
- "baseUrl": "https://test1-243500.appspot.com/_ah/api/myApi/v1/",
+ "baseUrl": "https://add_app_engine_project_id.appspot.com/_ah/api/myApi/v1/",
  "batchPath": "batch",
  "description": "This is an API",
  "discoveryVersion": "v1",
@@ -20,10 +20,10 @@
  "id": "myApi:v1",
  "kind": "discovery#restDescription",
  "methods": {
-  "tellJoke": {
-   "httpMethod": "POST",
-   "id": "myApi.tellJoke",
-   "path": "tellJoke",
+  "getJokes": {
+   "httpMethod": "GET",
+   "id": "myApi.getJokes",
+   "path": "mybean",
    "response": {
     "$ref": "MyBean"
    },
@@ -81,7 +81,7 @@
   }
  },
  "protocol": "rest",
- "rootUrl": "https://test1-243500.appspot.com/_ah/api/",
+ "rootUrl": "https://add_app_engine_project_id.appspot.com/_ah/api/",
  "schemas": {
   "MyBean": {
    "id": "MyBean",

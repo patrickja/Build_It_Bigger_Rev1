@@ -6,25 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 public class DisplayJokeActivity extends AppCompatActivity {
-    public static String JOKE_KEY = "JOKE_KEY";
+    private TextView joke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_joke);
-
-        TextView textview = (TextView) findViewById(R.id.joke_text);
-
-        String JokeResult = null;
         Intent intent = getIntent();
-        JokeResult = intent.getStringExtra(getString(R.string.jokeEnvelope));
-
-        if (JokeResult != null) {
-            textview.setText(JokeResult);
-        } else {
-            textview.setText("HELP! No jokes found!");
-        }
+        joke = findViewById(R.id.joke_text);
+        joke.setText(intent.getStringExtra("jokes"));
     }
 }
-
-

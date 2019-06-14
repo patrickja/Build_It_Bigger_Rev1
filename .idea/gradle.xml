@@ -9,6 +9,13 @@
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="resolveModulePerSourceSet" value="false" />
+        <set>
+          <option value="$PROJECT_DIR$" />
+          <option value="$PROJECT_DIR$/jokedisplayactivity" />
+          <option value="$PROJECT_DIR$/app" />
+          <option value="$PROJECT_DIR$/backend" />
+          <option value="$PROJECT_DIR$/jokelib" />
+        </set>
       </GradleProjectSettings>
     </option>
   </component>
